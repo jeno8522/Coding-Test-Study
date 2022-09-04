@@ -37,6 +37,7 @@ for i in range(n):
             num_of_groups += 1
 
 res.sort()
+
 print(num_of_groups)
 for e in res:
     print(e)

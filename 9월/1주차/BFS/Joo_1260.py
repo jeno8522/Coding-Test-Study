@@ -1,7 +1,6 @@
 from typing import *
 
 n,m,v = map(int, input().split())
-
 graph = [[] for i in range(n+1)]
 
 for i in range(m):

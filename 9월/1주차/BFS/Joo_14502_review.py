@@ -40,7 +40,6 @@ def bfs():
         cnt += copy_graph[i].count(0)
 
     safety_cnt = max(safety_cnt, cnt)   # 전역변수인 안전 지역 카운트의 최댓값 찾기
-
     return safety_cnt
 
 def iterative_wall(cnt: int, start_row: int, start_col: int):

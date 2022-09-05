@@ -11,7 +11,6 @@ for i in range(n):
     tomatos = list(map(int, input().split()))
     graph.append(tomatos)
 
-
 dx = [1, -1, 0, 0]
 dy = [0, 0, 1, -1]
 queue = deque()     #시간초과 떠서 queue의 pop(0)은 O(N), deque의 popleft는 O(1)이므로 deque 사용

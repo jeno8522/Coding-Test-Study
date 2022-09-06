@@ -31,7 +31,7 @@ for i in range(t):
 
     while baechoo:
         r, c = baechoo.popleft()        #전체가 아닌 배추를 심은 자리만 고려
-        if graph[r][c] == 1:            #배추 있으면 dfs호출 (여기서 배추가 있는 지 유무를 확인함)
+        if graph[r][c] == 1:            #배추 있으면 dfs호출 (여기서 배추가 있는 지 유무를 확인함).
             dfs(r,c)
             cnt += 1
     # for x in range(n):

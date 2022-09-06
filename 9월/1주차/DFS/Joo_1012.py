@@ -4,7 +4,7 @@ import sys
 sys.setrecursionlimit(10000)
 
 def dfs(r:int, c:int):
-    if r<0 or r>=n or c<0 or c>=m:      #리턴 조건 
+    if r<0 or r>=n or c<0 or c>=m:      #리턴 조건
         return
     if graph[r][c] != 1:
         return

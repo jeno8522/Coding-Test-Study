@@ -1,5 +1,3 @@
-#아직 이해 불가
-
 import sys                      #dfs 최대 재귀호출 수 제한
 sys.setrecursionlimit(100000)
 

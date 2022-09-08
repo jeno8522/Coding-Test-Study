@@ -10,7 +10,7 @@ def dfs(r:int, c:int):
         return
     if 0<=r<n and 0<=c<m:               #해당 부분에 배추가 있을 시 2로 마킹 후 dfs 재귀 호출
         if graph[r][c] == 1:            #어차피 dfs를 초기 호출 할때 조건을 확인 하고 호출하므로 해당 부분을 제외한 상하좌우만 dfs 호출 하도록 담부터 유의
-            graph[r][c] = 2
+            graph[r][c] = 2             #방문한 부분 2로 마킹
 
             dfs(r + 1, c)
             dfs(r - 1, c)

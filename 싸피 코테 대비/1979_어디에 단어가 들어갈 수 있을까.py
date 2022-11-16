@@ -35,12 +35,39 @@ print(f)                                문자열 1개 출력하는 예제
 
       단, 채점을 위해 코드를 제출하실 때에는 반드시 아래 구문을 지우거나 주석 처리 하셔야 합니다.
 '''
-#import sys
-#sys.stdin = open("input.txt", "r")
+import sys
+sys.stdin = open("input.txt", "r")
 
 T = int(input())
 # 여러개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
-def dfs():
+
 for test_case in range(1, T + 1):
-    n, k = map(int, input().split(' '))
-    graph = [list(map(int, input().split(' '))) for _ in range(n)]
+    n, k = map(int, input().split())
+    graph = [list(map(int, input().split())) for _ in range(n)]
+    print(n, k)
+    print(graph)
+    cnt = 0
+    for i in range(n):
+        tmp = 0
+        for j in range(n):
+            if graph[i][j]:
+                tmp += 1
+            else:
+                if tmp == k:
+                    cnt += 1
+                tmp = 0
+        if tmp == k:
+            cnt += 1
+
+    for i in range(n):
+        tmp = 0
+        for j in range(n):
+            if graph[j][i]:
+                tmp += 1
+            else:
+                if tmp == k:
+                    cnt += 1
+                tmp = 0
+        if tmp == k:
+            cnt += 1
+    print(f'#{test_case} {cnt}')

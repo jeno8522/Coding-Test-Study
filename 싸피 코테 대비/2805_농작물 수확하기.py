@@ -41,14 +41,13 @@ sys.stdin = open("input.txt", "r")
 T = int(input())
 # 여러개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
 for test_case in range(1, T + 1):
-    n, m = map(int, input().split())
-    flies = [list(map(int, input().split())) for _ in range(n)]
-    max_flies = 0
-    for i in range(n - m + 1):
-        for j in range(n - m + 1):
-            tmp_sum = 0
-            for k in range(i, i + m):
-                tmp_sum += sum(flies[k][j:j+m])
-            if tmp_sum > max_flies:
-                max_flies = tmp_sum
-    print(f'#{test_case} {max_flies}')
+    n = int(input())
+    graph = [list(map(int, input())) for _ in range(n)]
+
+    answer = 0
+    for i in range(n // 2 + 1):
+        answer += sum(graph[i][n//2 - i : n//2 + i + 1])
+    for i in range(n // 2 + 1, n):
+        answer += sum(graph[i][i - n//2 : n - (i - n//2)])
+
+    print(f'#{test_case} {answer}')

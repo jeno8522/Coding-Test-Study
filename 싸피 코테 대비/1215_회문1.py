@@ -37,18 +37,23 @@ print(f)                                문자열 1개 출력하는 예제
 '''
 import sys
 sys.stdin = open("input.txt", "r")
-
-T = int(input())
+def isPalindrome(l):
+    return l[::] == l[::-1]
+T = 10
 # 여러개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
 for test_case in range(1, T + 1):
-    n, m = map(int, input().split())
-    flies = [list(map(int, input().split())) for _ in range(n)]
-    max_flies = 0
-    for i in range(n - m + 1):
-        for j in range(n - m + 1):
-            tmp_sum = 0
-            for k in range(i, i + m):
-                tmp_sum += sum(flies[k][j:j+m])
-            if tmp_sum > max_flies:
-                max_flies = tmp_sum
-    print(f'#{test_case} {max_flies}')
+    k = int(input())
+    graph = [list(input()) for _ in range(8)]
+    t_graph = list(zip(*graph))
+
+    answer = 0
+
+    for i in range(8):
+        for j in range(8-k+1):
+            if isPalindrome(graph[i][j:j+k]):
+                # print(graph[i][j:j+k])
+                answer += 1
+            if isPalindrome(t_graph[i][j:j+k]):
+                # print(t_graph[i][j:j + k])
+                answer += 1
+    print(f'#{test_case} {answer}')

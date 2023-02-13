@@ -21,7 +21,7 @@ print(c, d, e)                          실수형 변수 3개 출력하는 예�
 print(f)                                문자열 1개 출력하는 예제
 '''
 
-
+import sys
 
 
 '''
@@ -35,37 +35,33 @@ print(f)                                문자열 1개 출력하는 예제
 
       단, 채점을 위해 코드를 제출하실 때에는 반드시 아래 구문을 지우거나 주석 처리 하셔야 합니다.
 '''
-import sys
 sys.stdin = open("input.txt", "r")
+sys.setrecursionlimit(10**6)
+# a^b
+def pow(num, p):
+    if p == 0:
+        return 1
+
+    half = pow(num, p/2)
+
+    if p%2 == 0:
+        return ((half%mod) * (half%mod))%mod
+    else:
+        return (((half*num)%mod) * (half%mod))%mod;
 
 
-d = {}
-x, y = 1, 1
-limit = 1
-weight = 2
-line = 1
+mod = 1234567891
+f = [0] * 1000001
+f[0] = 1
+for i in range(1, 1000001):
+    f[i] = (i * f[i - 1]) % mod
 
-for i in range(1, 41000):
-    d[i] = (x, y)
-    x += 1
-    y -= 1
-    if i == limit:
-        limit += weight
-        weight += 1
-        line += 1
-        y = line
-        x = 1
-r_d = dict(zip(d.values(),d.keys()))
-# print(d)
-# print(r_d)
 T = int(input())
+# 여러개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
 for test_case in range(1, T + 1):
-    p, q = map(int, input().split())
-    (p_x, p_y), (q_x, q_y) = d[p], d[q]
-    res = (p_x + q_x, p_y + q_y)
-    res = r_d[res]
-
-    print(f'#{test_case} {res}')
-
-
-
+    n, r = map(int, input().split())
+    top = f[n]%mod
+    bottom = ((f[n-r]%mod ) * (f[r]%mod))%mod
+    moveToTop = pow(bottom,mod-2)
+    answer = (top*moveToTop)%mod
+    print(f'#{test_case} {answer}')

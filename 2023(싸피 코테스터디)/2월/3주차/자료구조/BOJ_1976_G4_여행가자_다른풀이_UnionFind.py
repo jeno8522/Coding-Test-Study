@@ -4,9 +4,12 @@ import sys
 def find(v):
     if v == g[v]:
         return v
-    else:
+    else:       #경로 압축
         g[v] = find(g[v])
         return g[v]
+    # else:     일반적인 방법
+    #     return find(g[v])
+
 
 
 def merge(u, v):

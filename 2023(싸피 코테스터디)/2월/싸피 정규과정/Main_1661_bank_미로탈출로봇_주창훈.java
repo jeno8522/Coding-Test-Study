@@ -19,7 +19,6 @@ public class Main_1661_bank_미로탈출로봇_주창훈 {
 	static int res = 0;
 	static int[] dr = { -1, 1, 0, 0 };
 	static int[] dc = { 0, 0, -1, 1 };
-
 	static class Position {
 		int r;
 		int c;

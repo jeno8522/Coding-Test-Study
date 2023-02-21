@@ -33,7 +33,6 @@ public class Main_3109_G2_빵집_주창훈 {
 		}
 		return false;
 	}
-
 	public static void main(String[] args) throws IOException {
 		System.setIn(new FileInputStream("res/input.txt"));
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

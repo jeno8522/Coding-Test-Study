@@ -1,3 +1,5 @@
+# https://aia1235.tistory.com/54 -> python 얕은 복사, 깊은 복사 설명
+
 import copy
 import sys
 

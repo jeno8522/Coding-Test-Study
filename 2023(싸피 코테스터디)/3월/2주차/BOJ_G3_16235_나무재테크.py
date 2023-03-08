@@ -9,26 +9,26 @@ import sys
 from collections import deque
 
 input = sys.stdin.readline
-dr = [-1, -1, -1, 1, 1, 1, 0, 0]
+dr = [-1, -1, -1, 1, 1, 1, 0, 0]    # 가을에 나무를 번식하기 위한 방향 배열
 dc = [1, 0, -1, 1, 0, -1, 1, -1]
 
 
-def check_boundary(r, c):
+def check_boundary(r, c):           # 범위 체크 함수
     return 0 <= r < N and 0 <= c < N
 
 
 def spring_summer():
-    global result
+    global result               # 전역변수로 설정해 죽은 나무를 바로 빼준다
     for i in range(N):
         for j in range(N):
-            tmp = deque()
-            while graph[i][j]:
-                now = graph[i][j].popleft()
-                land[i][j] -= now
+            tmp = deque()       # 양분을 먹을 수 있는 나무를 저장할 deque
+            while graph[i][j]:  # 해당 좌표에 존재하는 deque에 나무가 심어져 있으면 모든 나무를 검사
+                now = graph[i][j].popleft() # 맨 앞에 존재하는 (가장 어린 나무)를 pop
+                land[i][j] -= now           # 해당 좌표의 양분 좌표에 해당 나무의 나이를 빼줌
                 if land[i][j] < 0:
-                    land[i][j] += now + now // 2
-                    result -= 1
-                    while graph[i][j]:
+                    land[i][j] += now + now // 2    # 양분이 부족하면 방금 뺀 나무의 나이 값을 더해주고
+                    result -= 1                     # 방금 뺀 나무도 죽은 나무 니깐 2로 나눈 값을 양분으로 더해줌 (이 부분 실수했음)
+                    while graph[i][j]:              # 나머지 deque에 남은 나무들 전부 해당 좌표에 양분으로 더해줌
                         land[i][j] += graph[i][j].popleft() // 2
                         result -= 1
                     break
@@ -38,17 +38,17 @@ def spring_summer():
 
 
 def fall_winter():
-    global result
+    global result       # 전역변수로 설정해 번식한 나무를 바로 더해준다
     for i in range(N):
         for j in range(N):
             if graph[i][j]:
-                for e in graph[i][j]:
+                for e in graph[i][j]:   # 해당 좌표의 deque 의 모든 나무를 검사해 5의 배수이면 8방으로 번식
                     if e % 5 == 0:
                         for d in range(8):
                             if check_boundary(i + dr[d], j + dc[d]):
                                 graph[i + dr[d]][j + dc[d]].appendleft(1)
                                 result += 1
-            land[i][j] += A[i][j]
+            land[i][j] += A[i][j]       # 기계로 땅에 양분을 더해줌
 
 
 N, M, K = map(int, input().split())

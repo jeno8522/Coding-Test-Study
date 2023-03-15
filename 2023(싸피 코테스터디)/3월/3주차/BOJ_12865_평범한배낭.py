@@ -1,31 +1,20 @@
 import sys
+
 input = sys.stdin.readline
 
-n, k = map(int, input().split())
-info = [list(map(int, input().split())) for _ in range(n)]
-dp = [[[0,0]]]
-for i in range(1, n+1):
-    if i == 1:
-        dp.append([[info[i-1][0], info[i-1][1]]])
-        continue
-    if info[i-1][0] > k or info[i-1][1] == 0:
-        tmp = []
-        for e in dp[i-1]:
-            tmp.append(e)
-        dp.append(tmp)
-        continue
-    tmp = [[info[i-1][0], info[i-1][1]]]
-    for e in dp[i-1]:
-        nw, nv = info[i - 1][0] + e[0], info[i - 1][1] + e[1]
-        if nw > k:
-            continue
-        else:
-            tmp.append([nw, nv])
-    dp.append(tmp)
+N, K = map(int, input().split())
+dp = [[0] * (K + 1) for _ in range(N+1)]  # dp 값은 해당 원소까지 사용하여 해당 무게 인덱스로 창출할 수 있는 최대 가치
+info = [list(map(int, input().split())) for _ in range(N)]
 
-max_value = -1
-for e in dp[-1]:
-    if max_value < e[1]:
-        max_value = e[1]
-print(max_value)
+for i in range(1,N+1):
+    w, v = info[i-1][0], info[i-1][1]
+    # if i == 1 and w <= K and v > 0:
+    #     dp[i][w] = v
+    #     continue
+    for j in range(1, K + 1):
+        if j < w:   # w보다 작은 무게의 index는 전의 dp 값 그대로 삽입
+            dp[i][j] = dp[i-1][j]
+        else:   # w와 같거나 큰 무게의 index의 경우
+            dp[i][j] = max(dp[i-1][j], dp[i-1][j-w] + v)    # 전 원소의 dp 값, 현재 원소의 가치 + 현재 원소의 무게 만큼 뺀 전 원소의 dp 값 중 최댓값으로 갱신
 
+print(dp[-1][-1])

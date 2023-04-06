@@ -43,4 +43,4 @@ print(dp[1])
 #모든 자식노드를 dfs 돌리고 자식노드의 dp값을 나의 dp값에 더해줌
 #모든 자식이 adt이면 나는 adt가 아니므로 return False
 #적어도 한명의 자식이 adt가 아니면 나는 adt이어야 함, dp값 +1 해주고 return True
-#
+#O(N)이 아닐까??

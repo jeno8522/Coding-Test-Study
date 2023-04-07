@@ -1,0 +1,104 @@
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
+public class Solution {
+	static int N;
+	static int[][] graph;
+	static ArrayList<int[]> pPos;
+	static int[][] sPos;
+	static int pCnt;
+	static boolean[] visited;
+	static boolean[] isSelected;
+	static int maxMoveTime;
+	static void subSet(int cnt) {
+		if(cnt == pCnt) {
+			ArrayList<Integer> listS1 = new ArrayList<>();
+			ArrayList<Integer> listS2 = new ArrayList<>();
+			for (int i = 0; i < pCnt; i++) {
+				if(visited[i])
+					listS1.add(i);
+				else
+					listS2.add(i);
+			}
+			startLunch(listS1, listS2);
+		}
+		visited[cnt] = true;
+		subSet(cnt+1);
+		visited[cnt] = false;
+		subSet(cnt+1);
+	}
+	static void permutation(int[] s, int cnt, int limit, int sNum) {
+		if(cnt == limit) {
+			calTime(s, sNum);
+		}
+		for (int i = 0; i < limit; i++) {
+			if(isSelected[i]) continue;
+			isSelected[i] = true;
+			s[cnt] = i;
+			permutation(s, cnt+1, limit, sNum);
+		}
+	}
+	static void calTime(int[]s, int sNum) {
+		int maxTime = 0;
+
+		for (int i = 0; i < 3; i++) {
+			int nowTime = calMoveTime(pPos.get(s[i])[0], pPos.get(s[i])[1], sPos[sNum][0], sPos[sNum][1]);
+			maxTime = Math.max(maxTime, nowTime);
+		}
+		maxTime += sPos[sNum][2];
+		int waitMaxTime = 0;
+		if(s.length > 3) {
+			for (int i = 3; i < s.length; i++) {
+				int nowTime = calMoveTime(pPos.get(s[i])[0], pPos.get(s[i])[1], sPos[sNum][0], sPos[sNum][1]);
+				waitMaxTime = Math.max(waitMaxTime, nowTime);
+			}
+		}
+		int resMaxTime = Math.max(maxTime, waitMaxTime);
+		resMaxTime += sPos[sNum][2];
+		return resMaxTime;
+		
+	}
+	static void startLunch(ArrayList<Integer> listS1, ArrayList<Integer> listS2) {
+		int[]s1 = new int[listS1.size()];
+		permutation(s1, 0, listS1.size(), 0);
+	}
+	static int calMoveTime(int pr, int pc, int sr, int sc) {
+		return Math.abs(pr - sr) + Math.abs(pc - sc);
+	}
+	public static void main(String[] args) throws IOException {
+		//System.setIn(new FileInputStream("res/input.txt"));
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int T = Integer.parseInt(st.nextToken());
+		for (int tc = 1; tc <= T; tc++) {
+			N = Integer.parseInt(st.nextToken());
+			graph = new int[N][N];
+			pPos = new ArrayList<>();
+			sPos = new int[2][3];
+			int sNum = 0;
+			for (int i = 0; i < N; i++) {
+				st = new StringTokenizer(br.readLine());
+				for (int j = 0; j < N; j++) {
+					graph[i][j] = Integer.parseInt(st.nextToken());
+					if (graph[i][j] == 1)
+						pPos.add(new int[] { i, j });
+					else if (graph[i][j] > 1)
+						sPos[sNum++] = new int[] { i, j, graph[i][j] };
+				}
+			}
+			maxMoveTime = Integer.MIN_VALUE;
+			pCnt = pPos.size();
+			visited = new boolean[pCnt];
+			for (int i = 0; i < pCnt; i++) {
+
+			}
+		}
+	}
+
+}
